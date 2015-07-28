@@ -2,15 +2,20 @@ ikki fantasy 闘技大会　技履歴ツール
 
 1. はじめに
 
-本ドキュメントは、以下の ikki fantasy の 闘技大会 技履歴表示ツールの使い方を説明しています。
+本ドキュメントは、以下の ikki fantasy の 闘技大会 技履歴
+表示ツールの使い方を説明しています。
 
 本日の封殺予報（闘技大会の技履歴表示ツール）
 
 https://young-ravine-2391.herokuapp.com/
 
-ikki fantasy は symalisさん 作成の定期更新型ゲームです。ikki fantasy は 更新を終了していますが、将来、symalis さんが新しい定期更新型のゲームを作成する可能性もありますし本ツールを公開しておくことにしました。
+ikki fantasy は symalisさん 作成の定期更新型ゲームです。
+ikki fantasy は 更新を終了していますが、将来、symalis さ
+んが新しい定期更新型のゲームを作成する可能性もありますし本ツ
+ールを公開しておくことにしました。
 
-定期更新型ゲームについては以下をご参照ください（「False Island」も symalis さん作成の定期講師型ゲームです）。
+定期更新型ゲームについては以下をご参照ください
+（「False Island」も symalis さん作成の定期講師型ゲームです）。
 
 http://dic.pixiv.net/a/%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0%E5%9E%8B%E3%83%8D%E3%83%83%E3%83%88%E3%82%B2%E3%83%BC%E3%83%A0
 
@@ -18,7 +23,10 @@ http://dic.pixiv.net/a/%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0%E5%9E%8B%E3%83%8D%E3
 
 http://www55.atwiki.jp/ikkifantasy/
 
-本ツールはikki fantasy の元プレイヤーを対象としています。「ENo」、「闘技大会」、「封殺」、「スキル」、「ギフト」などの ikki fantasy 用語については定義なく使っていますのでご注意ください。本ツールでは以下の機能を提供します。
+本ツールはikki fantasy の元プレイヤーを対象としています。
+「ENo」、「闘技大会」、「封殺」、「スキル」、「ギフト」など
+の ikki fantasy 用語については定義なく使っていますのでご
+注意ください。本ツールでは以下の機能を提供します。
 
 １）闘技大会の技履歴の表示
 ２）スキル保有者の調査
@@ -30,7 +38,9 @@ http://www55.atwiki.jp/ikkifantasy/
 
 本ツールは Ruby で動作します。
 
-技履歴の表示には sinatora のWebアプリフレームワークを利用しています。sinatora で表示される場合は 以下のgem が必要です。(Gemfileから抜粋しています。bundle install でインストールします)。
+技履歴の表示には sinatora のWebアプリフレームワークを利用して
+います。sinatora で表示される場合は 以下のgem が必要です。(Gemfile
+から抜粋しています。bundle install でインストールします)。
 
 source 'https://rubygems.org'
 ruby "2.2.0"
@@ -39,7 +49,11 @@ gem "sinatra-reloader"
 gem "html-table"
 gem "hpricot","~> 0.8.6"
 
-testには test-unit が必要です（ごく簡単なテストでかつ第6回闘技大会専用）。動作テストは Mac OS X の 10.9、10.10 (OSX での readlineの日本語表示不具合の対策をしています) および Fedora 22 です。Windows では テストしていませんが、Ruby 環境さえあれば動作すると思います（多分）。
+testには test-unit が必要です（ごく簡単なテストでかつ第6回闘技
+大会専用）。動作テストは Mac OS X の 10.9、10.10 (OSX での
+readlineの日本語表示不具合の対策をしています) および Fedora 22
+です。Windows では テストしていませんが、Ruby 環境さえあれば動作
+すると思います（多分）。
 
 3. 使い方
 
@@ -47,20 +61,32 @@ testには test-unit が必要です（ごく簡単なテストでかつ第6回�
 
 3.1.1 闘技大会結果オブジェクトの作成
 
-ツールの１つ上の階層に data というディレクトリを作成します。そして、ikki fantasy の更新結果アーカイブ（result.zip）を 解凍し、data に "r068"のように、"r"と更新回の数字("068")とでディレクトリ名をリネームします。ikki fantasy の更新は終了しており、公式サイトから更新結果へのアクセスもできませんが、以下の場所から結果のアーカイブは取得できます（全更新が取得できるわけではないです）。
+ツールの１つ上の階層に data というディレクトリを作成します。
+そして、ikki fantasy の更新結果アーカイブ（result.zip）を 解凍
+し、data に "r068"のように、"r"と更新回の数字("068")とでディレ
+クトリ名をリネームします。ikki fantasy の更新は終了しており、公
+式サイトから更新結果へのアクセスもできませんが、以下の場所から結果
+のアーカイブは取得できます（全更新が取得できるわけではないです）。
 
 https://drive.google.com/folderview?id=0B60Q_-hlDI93cmJZSDlNa0ZxMzA&usp=drive_web
 https://drive.google.com/folderview?id=0B-Va5L8byZTpfmxvWU5OMUN4V1Zwek9XYkIwOGVHNXBXYks3R0JldVF5RUNTdVhJSFFHSG8&usp=drive_web
 
-更新データの配置が済んだら、ツールのディレクトリで gogoikki.sh を実行します。この sh スクリプトでは、一揆 wiki の スキル一覧とギフト一覧のページをwget で取得しています。ikki fantasy の 闘技大会を解析するのは実質的に以下のruby スクリプトの実行です。
+更新データの配置が済んだら、ツールのディレクトリで gogoikki.sh
+を実行します。この sh スクリプトでは、一揆 wiki の スキル一覧と
+ギフト一覧のページをwget で取得しています。ikki fantasy の 闘
+技大会を解析するのは実質的に以下のruby スクリプトの実行です。
 
 ruby bin/rival_battle.rb
 
-このスクリプトにより ツールのカレントディレクトリの dataディレクトリに "ikki_box_r068" という 闘技大会のhtmlファイルを解析した結果のオブジェクトが格納されます。
+このスクリプトにより ツールのカレントディレクトリの dataディレク
+トリに "ikki_box_r068" という 闘技大会のhtmlファイルを解析した
+結果のオブジェクトが格納されます。
 
 3.1.1 闘技大会技履歴表示ツール
 
-闘技大会技履歴表示ツールはあるキャラクターのパーティとその対戦相手の闘技大会での技履歴を表示します。bundle install で sinatora などの gem が インストールされていることが前提ですが。
+闘技大会技履歴表示ツールはあるキャラクターのパーティとその対戦相
+手の闘技大会での技履歴を表示します。bundle install で sinatora
+などの gem が インストールされていることが前提ですが。
 
 ruby bin/myapp.rb
 
@@ -68,13 +94,24 @@ ruby bin/myapp.rb
 
 http://localhost:4567/
 
-でアクセスできるようになります（ただし、どんな更新回でも 「第6回闘技大会用で68日目に対応」と記載されてしまうのです。bin/views/layout.erb に直書きしているので）。
+でアクセスできるようになります（ただし、どんな更新回でも 「第6回
+闘技大会用で68日目に対応」と記載されてしまうのです。
+bin/views/layout.erbに直書きしているので）。
 
-myapp.rb 内で ウェブページの form から ENo.を受け取り、enum に代入しています。これを、IkkiFantasyAnalysis 型の オブジェクト ikki_box の ret_skill_sequence_hash メソッド に渡し、返り値の hash を受け取っています。 myapp.rb では この hash を用いて 技履歴の表示を行っています。技履歴の表示は入力したEno.のキャラクターのチームとデータを作成した時点での対戦相手の技の履歴を表示します。
+myapp.rb 内で ウェブページの form から ENo.を受け取り、enum
+に代入しています。これを、IkkiFantasyAnalysis 型の オブジェクト
+ikki_box の ret_skill_sequence_hash メソッド に渡し、返り値の
+hash を受け取っています。 myapp.rb では この hash を用いて 技履
+歴の表示を行っています。技履歴の表示は入力したEno.のキャラクターの
+チームとデータを作成した時点での対戦相手の技の履歴を表示します。
 
 3.2 スキル保有者の調査
 
-bin/look_at_this_person.rb では、スキルやギフトの持ち主を検索することができます。スクリプトを起動させると readline で ユーザからの入力を待ちます。以下のようにスキルやギフトをスペース区切りで入力すると、そのスキルやギフトの組み合わせを保持したキャラクターの ENo. を返します。
+bin/look_at_this_person.rb では、スキルやギフトの持ち主を検索
+することができます。スクリプトを起動させると readline で ユーザ
+からの入力を待ちます。以下のようにスキルやギフトをスペース区切り
+で入力すると、そのスキルやギフトの組み合わせを保持したキャラクター
+の ENo. を返します。
 
 ruby bin/look_at_this_person.rb
 > 閃天 サニュイス 冥土の歳暮 フロス クリシス
@@ -82,7 +119,8 @@ ruby bin/look_at_this_person.rb
 -> 1523
 > 
 
-ギフトは複数持ちを検索する時は、ギフトの後に:（コロン）と数字で所持数を指定することができます。
+ギフトは複数持ちを検索する時は、ギフトの後に:（コロン）と数字で
+所持数を指定することができます。
 
 > INTUP:6
 ["INTUP:6"]
@@ -92,17 +130,21 @@ ruby bin/look_at_this_person.rb
 
 http://d.hatena.ne.jp/zariganitosh/20140923/japanese_irb
 
-を参考にruby の readline が参照しているライブラリを変更します。ワタクシが実行したコマンドは以下のごとしです。
+を参考にruby の readline が参照しているライブラリを変更します。
+ワタクシが実行したコマンドは以下のごとしです。
 
 sudo install_name_tool -change '/usr/lib/libedit.3.dylib' '/usr/local/Cellar/readline/6.3.8/lib/libreadline.dylib' 'Users/sugihara/.rbenv/versions/2.2.0/lib/ruby/2.2.0/x86_64-darwin14/readline.bundle'
 
 3.3 闘技大会の封殺数の調査
 
-以下のスクリプトを実行することで、"ENo, 封殺数"、"パーティ名, 封殺数"、"スキル名, 封殺数"、を順に標準出力へ表示します。
+以下のスクリプトを実行することで、"ENo, 封殺数"、"パーティ名, 封殺数"、
+"スキル名, 封殺数"、を順に標準出力へ表示します。
 
 ruby bin/cancel_stat.rb
 
-注意点）完全に同名のキャラクターが同じ試合に出場している場合、うまく封殺数がカウントされません。その場合は標準出力に以下のようなERRORが表示されます。
+注意点）完全に同名のキャラクターが同じ試合に出場している場合、うまく封
+殺数がカウントされません。その場合は標準出力に以下のようなERRORが表示
+されます。
 
 "ERR0R1"
 "../data/r068/br/8-113-736.html"
@@ -110,7 +152,8 @@ ruby bin/cancel_stat.rb
 
 4. その他情報（問い合わせ先）
 
-本ツールの問い合わせ先は以下のメールアドレスにてお問い合わせください。すでに更新の終了したゲーム用ツールを使う人などいないとは思いますが…
+本ツールの問い合わせ先は以下のメールアドレスにてお問い合わせください。
+すでに更新の終了したゲーム用ツールを使う人などいないとは思いますが…
 ---------------------------
 Data: 2015/07/28
 Author: ENo. 1523 シュガーレス・ショーガ の PL
