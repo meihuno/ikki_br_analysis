@@ -30,7 +30,7 @@ http://www55.atwiki.jp/ikkifantasy/
 
 本ツールは Ruby で動作します。
 
-技履歴の表示には sinatora のWebアプリフレームワークを利用しています。sinatora で表示される場合は 以下のgem が必要です。(Gemfileから抜粋しています。bundle を使ってで自動でインストールされます)
+技履歴の表示には sinatora のWebアプリフレームワークを利用しています。sinatora で表示される場合は 以下のgem が必要です。(Gemfileから抜粋しています。bundle install でインストールします)。
 
 source 'https://rubygems.org'
 ruby "2.2.0"
@@ -60,7 +60,7 @@ ruby bin/rival_battle.rb
 
 3.1.1 闘技大会技履歴表示ツール
 
-闘技大会技履歴表示ツールはあるキャラクターのパーティとその対戦相手の闘技大会での技履歴を表示します。
+闘技大会技履歴表示ツールはあるキャラクターのパーティとその対戦相手の闘技大会での技履歴を表示します。bundle install で sinatora などの gem が インストールされていることが前提ですが。
 
 ruby bin/myapp.rb
 
