@@ -16,6 +16,7 @@ ikki fantasy 闘技大会技履歴表示ツール
 
 本日の封殺予報（闘技大会の技履歴表示ツール）
 https://young-ravine-2391.herokuapp.com/
+
 （herokuのアカウントを放置していたらサービスは消えてしまいました・・・。2022年末）
 
 設定方法などについては doc/howtouse.txt に使い方を記載しています。
